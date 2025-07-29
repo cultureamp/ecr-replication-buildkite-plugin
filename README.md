@@ -4,14 +4,19 @@ Waits for ECR image replication to complete across all regions before proceeding
 
 This plugin monitors the replication status of a Docker image in Amazon ECR and waits until the image has been successfully replicated to all configured regions. It uses exponential backoff (starting at 2 seconds, maximum 15 seconds) to efficiently poll the replication status.
 
+> [!NOTE]
+> This plugin expects the repository to be configured for replication, so will fail if the replication status isn't present.
+
 ## Example
 
 Add the following to your `pipeline.yml`:
 
 ```yml
 steps:
-  - command: echo "Image replication complete"
+  - label: ":ecr: wait for ECR image replication"
     plugins:
+      - assume-role-with-web-identity#v1.4.0:
+          role-arn: arn:xyz
       - cultureamp/ecr-replication#v1.0.0:
           image-name: "123456789012.dkr.ecr.us-east-1.amazonaws.com/my-repo:latest"
 ```
