@@ -1,0 +1,7 @@
+# use current script's directory in search path
+source-path=SCRIPTDIR
+
+# Suggest ${VAR} in place of $VAR
+enable=require-variable-braces
+
+external-sources=true

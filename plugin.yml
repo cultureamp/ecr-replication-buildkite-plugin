@@ -1,0 +1,12 @@
+name: ECR Replication
+description: Waits for ECR image replication to complete across all regions before proceeding with the build step.
+author: https://github.com/cultureamp
+license: MIT
+requirements: ["aws"]
+configuration:
+  properties:
+    image-name:
+      type: string
+      description: "The name of the container image in ECR. This should be the same string that is supplied as an argument to the docker push command used to push the image to AWS ECR. It should have the form: AWS_ACCOUNT_ID.dkr.ecr.REGION.amazonaws.com/REPOSITORY_NAME:IMAGE_TAG with the text in capitals replaced with the appropriate values for your environment."
+  required: ["image-name"]
+  additionalProperties: false
