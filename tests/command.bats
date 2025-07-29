@@ -27,7 +27,7 @@ setup() {
 
   assert_success
   assert_output --partial "Monitoring ECR replication for image: 123456789012.dkr.ecr.us-east-1.amazonaws.com/my-repo:latest"
-  assert_output --partial "Replication status: 2 complete, 0 in progress, 0 failed (2 total regions)"
+  assert_output --partial "replication status: 2 complete, 0 in progress, 0 failed (2 total regions)"
   assert_output --partial "✅ All regions have completed replication successfully"
 
   unstub aws
@@ -51,9 +51,9 @@ setup() {
   run "$PWD/hooks/command"
 
   assert_success
-  assert_output --partial "Replication status: 1 complete, 1 in progress, 0 failed (2 total regions)"
+  assert_output --partial "replication status: 1 complete, 1 in progress, 0 failed (2 total regions)"
   assert_output --partial "Waiting 2s before next check..."
-  assert_output --partial "Replication status: 2 complete, 0 in progress, 0 failed (2 total regions)"
+  assert_output --partial "replication status: 2 complete, 0 in progress, 0 failed (2 total regions)"
   assert_output --partial "✅ All regions have completed replication successfully"
 
   unstub aws
@@ -123,9 +123,9 @@ setup() {
 
   run "$PWD/hooks/command"
 
-  assert_success
-  assert_output --partial "Replication status: 2 complete, 0 in progress, 1 failed (3 total regions)"
-  assert_output --partial "⚠️  Replication finished with 1 failed region(s) out of 3 total"
+  assert_failure
+  assert_output --partial "replication status: 2 complete, 0 in progress, 1 failed (3 total regions)"
+  assert_output --partial "Replication finished with 1 failed region(s) out of 3 total"
 
   unstub aws
   unstub jq
@@ -147,11 +147,11 @@ setup() {
 
   run "$PWD/hooks/command"
 
-  assert_success
-  assert_output --partial "Replication status: 1 complete, 1 in progress, 0 failed (2 total regions)"
+  assert_failure
+  assert_output --partial "replication status: 1 complete, 1 in progress, 0 failed (2 total regions)"
   assert_output --partial "Waiting 2s before next check..."
-  assert_output --partial "Replication status: 1 complete, 0 in progress, 1 failed (2 total regions)"
-  assert_output --partial "⚠️  Replication finished with 1 failed region(s) out of 2 total"
+  assert_output --partial "replication status: 1 complete, 0 in progress, 1 failed (2 total regions)"
+  assert_output --partial "Replication finished with 1 failed region(s) out of 2 total"
 
   unstub aws
   unstub jq

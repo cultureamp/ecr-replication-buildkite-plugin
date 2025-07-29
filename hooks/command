@@ -36,8 +36,6 @@ function wait_for_replication() {
   local wait_time=2
   local max_wait=15
 
-  log "Waiting for ECR replication to complete for ${repository_name}:${image_tag}"
-
   while true; do
     local status_output
     if ! status_output=$(aws ecr describe-image-replication-status \
@@ -85,7 +83,7 @@ function wait_for_replication() {
     fi
 
     # Log detailed status breakdown
-    log "Replication status: ${complete_count} complete, ${in_progress_count} in progress, ${failed_count} failed (${region_count} total regions)"
+    log "... replication status: ${complete_count} complete, ${in_progress_count} in progress, ${failed_count} failed (${region_count} total regions)"
 
     if ${all_settled}; then
       break
@@ -106,7 +104,7 @@ function wait_for_replication() {
   if [[ ${failed_count} -eq 0 ]]; then
     log "✅ All regions have completed replication successfully"
   else
-    log "⚠️  Replication finished with ${failed_count} failed region(s) out of ${region_count} total"
+    error "Replication finished with ${failed_count} failed region(s) out of ${region_count} total"
   fi
 }
 
@@ -118,14 +116,12 @@ function main() {
     error "Missing required parameter: 'image-name'"
   fi
 
-  log "Monitoring ECR replication for image: ${image_name}"
+  echo "--- Monitoring ECR replication for image: ${image_name}"
 
   local repository_name image_tag
   read -r repository_name image_tag <<< "$(parse_image_name "${image_name}")"
 
   wait_for_replication "${repository_name}" "${image_tag}"
-
-  log "ECR replication monitoring completed successfully"
 }
 
 main "$@"
