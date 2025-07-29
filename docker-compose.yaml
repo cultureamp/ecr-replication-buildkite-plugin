@@ -1,0 +1,18 @@
+services:
+  lint:
+    image: buildkite/plugin-linter
+    command: ['--id', 'cultureamp/ecr-replication']
+    volumes:
+      - ".:/plugin:ro"
+
+  tests:
+    image: buildkite/plugin-tester
+    volumes:
+      - ".:/plugin:ro"
+
+  shellcheck:
+    image: koalaman/shellcheck:stable
+    volumes:
+      - ".:/mnt:ro"
+    working_dir: /mnt
+    command: ["hooks/command", "lib/shared.bash"]
