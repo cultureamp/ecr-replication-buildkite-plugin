@@ -1,0 +1,13 @@
+{
+  "@cultureamp/generator-templates": {
+    "version": "0.194.0",
+    "namespace": "@cultureamp/templates:basic",
+    "projectSlug": "ecr-replication",
+    "description": "A Buildkite plugin that polls the replication status for an image until its status ready for the build to continue.",
+    "team": "sre-foundations",
+    "camp": "SRE",
+    "assetCriticality": "LOW",
+    "dataClassification": "NONE",
+    "lifecycle": "experimental"
+  }
+}

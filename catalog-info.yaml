@@ -1,0 +1,21 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: "ecr-replication"
+  description: "A Buildkite plugin that polls the replication status for an image until its status ready for the build to continue."
+  links: # add any links that would be useful here. Dashboards, site urls etc
+    - title: Source
+      url: "https://github.com/cultureamp/ecr-replication"
+  tags:
+    - camp-sre
+    - data-classification-none
+    - asset-criticality-low
+  annotations:
+    github.com/project-slug: ecr-replication
+    github.com/team-slug: cultureamp/sre-foundations
+    buildkite.com/project-slug: culture-amp/ecr-replication
+spec:
+  type: service
+  lifecycle: experimental
+  owner: sre-foundations
+  generatedFrom: blank-repo-tmpl
