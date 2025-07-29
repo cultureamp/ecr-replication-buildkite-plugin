@@ -2,7 +2,7 @@ name: ECR Replication
 description: Waits for ECR image replication to complete across all regions before proceeding with the build step.
 author: https://github.com/cultureamp
 license: MIT
-requirements: ["aws"]
+requirements: ["aws", "jq"]
 configuration:
   properties:
     image-name:
